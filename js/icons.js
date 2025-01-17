@@ -22,15 +22,49 @@ const icons = {
         <circle cx="12" cy="12" r="10"/>
         <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
     </svg>`,
-    'outlook': `<svg class="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect x="10" y="2" width="20" height="28" rx="2" fill="#1066B5"/>
-        <rect x="10" y="5" width="10" height="10" fill="#32A9E7"/>
-        <rect x="10" y="15" width="10" height="10" fill="#167EB4"/>
-        <rect x="20" y="15" width="10" height="10" fill="#32A9E7"/>
-        <rect x="20" y="5" width="10" height="10" fill="#58D9FD"/>
-    </svg>`,
-    'mi': `<svg class="w-7 h-7" viewBox="0 0 1024 1024">
-        <circle cx="512" cy="512" r="512" fill="#ff6900"/>
-        <path d="M512 256c-85 0-154.54 5.44-202.82 53.67S256 427.37 256 512.26s4.91 154.35 53.21 202.6S427 768 512 768s154.52-4.91 202.79-53.14S768 597.12 768 512.26s-5-154.52-53.38-202.75S596.86 256 512 256z" fill="#fff"/>
-    </svg>`
+    'outlook': `<svg width="28px" height="28px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="2" width="20" height="28" rx="2" fill="#1066B5"></rect>
+      <rect x="10" y="2" width="20" height="28" rx="2" fill="url(#paint0_linear_87_7742)"></rect>
+      <rect x="10" y="5" width="10" height="10" fill="#32A9E7"></rect>
+      <rect x="10" y="15" width="10" height="10" fill="#167EB4"></rect>
+      <rect x="20" y="15" width="10" height="10" fill="#32A9E7"></rect>
+      <rect x="20" y="5" width="10" height="10" fill="#58D9FD"></rect>
+      <mask id="mask0_87_7742" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="8" y="14" width="24" height="16">
+      <path d="M8 14H30C31.1046 14 32 14.8954 32 16V28C32 29.1046 31.1046 30 30 30H10C8.89543 30 8 29.1046 8 28V14Z" fill="url(#paint1_linear_87_7742)"></path>
+      </mask>
+      <g mask="url(#mask0_87_7742)">
+      <path d="M32 14V18H30V14H32Z" fill="#135298"></path>
+      <path d="M32 30V16L7 30H32Z" fill="url(#paint2_linear_87_7742)"></path>
+      <path d="M8 30V16L33 30H8Z" fill="url(#paint3_linear_87_7742)"></path>
+      </g>
+      <path d="M8 12C8 10.3431 9.34315 9 11 9H17C18.6569 9 20 10.3431 20 12V24C20 25.6569 18.6569 27 17 27H8V12Z" fill="#000000" fill-opacity="0.3"></path>
+      <rect y="7" width="18" height="18" rx="2" fill="url(#paint4_linear_87_7742)"></rect>
+      <path d="M14 16.0693V15.903C14 13.0222 11.9272 11 9.01582 11C6.08861 11 4 13.036 4 15.9307V16.097C4 18.9778 6.07278 21 9 21C11.9114 21 14 18.964 14 16.0693ZM11.6424 16.097C11.6424 18.0083 10.5665 19.1579 9.01582 19.1579C7.46519 19.1579 6.37342 17.9806 6.37342 16.0693V15.903C6.37342 13.9917 7.44937 12.8421 9 12.8421C10.5348 12.8421 11.6424 14.0194 11.6424 15.9307V16.097Z" fill="white"></path>
+      <defs>
+      <linearGradient id="paint0_linear_87_7742" x1="10" y1="16" x2="30" y2="16" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#064484"></stop>
+      <stop offset="1" stop-color="#0F65B5"></stop>
+      </linearGradient>
+      <linearGradient id="paint1_linear_87_7742" x1="8" y1="26.7692" x2="32" y2="26.7692" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1B366F"></stop>
+      <stop offset="1" stop-color="#2657B0"></stop>
+      </linearGradient>
+      <linearGradient id="paint2_linear_87_7742" x1="32" y1="23" x2="8" y2="23" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#44DCFD"></stop>
+      <stop offset="0.453125" stop-color="#259ED0"></stop>
+      </linearGradient>
+      <linearGradient id="paint3_linear_87_7742" x1="8" y1="23" x2="32" y2="23" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#259ED0"></stop>
+      <stop offset="1" stop-color="#44DCFD"></stop>
+      </linearGradient>
+      <linearGradient id="paint4_linear_87_7742" x1="0" y1="16" x2="18" y2="16" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#064484"></stop>
+      <stop offset="1" stop-color="#0F65B5"></stop>
+      </linearGradient>
+      </defs>
+      </svg>`,
+    'mi': `<svg width="28px" height="28px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+         <circle cx="512" cy="512" r="512" style="fill:#ff6900"></circle>
+         <path d="M512 256c-85 0-154.54 5.44-202.82 53.67S256 427.37 256 512.26s4.91 154.35 53.21 202.6S427 768 512 768s154.52-4.91 202.79-53.14S768 597.12 768 512.26s-5-154.52-53.38-202.75S596.86 256 512 256zM360.66 414h120c31.36 0 64.15 1.45 80.3 17.64 15.91 15.91 17.64 47.64 17.71 78.42v96.85a3.2 3.2 0 0 1-3.27 3.09h-41.53a3.2 3.2 0 0 1-3.24-3.16v-98.5c0-17.19-1-34.86-9.9-43.75-7.64-7.68-21.89-9.41-36.69-9.77H408.7a3.2 3.2 0 0 0-3.22 3.14v148.93a3.2 3.2 0 0 1-3.24 3.16h-41.58a3.2 3.2 0 0 1-3.2-3.16V417.15a3.2 3.2 0 0 1 3.2-3.15zm258.79 0H661a3.2 3.2 0 0 1 3.2 3.2v189.7a3.2 3.2 0 0 1-3.2 3.1h-41.54a3.2 3.2 0 0 1-3.22-3.16V417.15a3.2 3.2 0 0 1 3.22-3.18zm-173.16 75.56h43.65a3.17 3.17 0 0 1 3.2 3.14v114.17a3.2 3.2 0 0 1-3.2 3.16h-43.65a3.2 3.2 0 0 1-3.24-3.16V492.69a3.2 3.2 0 0 1 3.24-3.13z" style="fill:#fff"></path>
+      </svg>`
 }
