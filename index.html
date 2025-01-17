@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -7,40 +6,49 @@
     <title>MiApex导航</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/data.js"></script>
+    <script src="js/icons.js"></script>
 </head>
 <body class="bg-gray-100">
     <div id="app"></div>
-    <script type="module">
+    
+    <script>
         const { createApp, ref } = Vue
-
+        
         const App = {
             template: `
                 <div class="min-h-screen p-5">
                     <div class="max-w-6xl mx-auto">
                         <h1 class="text-3xl font-bold text-center text-gray-800 mb-10">MiApex导航</h1>
                         
-                        <div v-for="category in categories" :key="category.title" 
+                        <div v-for="category in categories" 
+                             :key="category.title"
                              class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                            
                             <div class="flex items-center gap-3 pb-4 mb-4 border-b">
-                                <component :is="category.icon" class="w-7 h-7"/>
+                                <div v-html="icons[category.icon]"></div>
                                 <h2 class="text-xl text-gray-700">{{ category.title }}</h2>
                             </div>
                             
                             <div class="space-y-3">
-                                <div v-for="link in category.links" :key="link.url"
-                                     class="flex justify-between items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
-                                    <a :href="link.url" target="_blank" 
+                                <div v-for="link in category.links" 
+                                     :key="link.url"
+                                     class="flex justify-between items-center p-3 rounded-lg hover:bg-gray-50 transition-all duration-300">
+                                    
+                                    <a :href="link.url" 
+                                       target="_blank"
                                        class="flex items-center gap-3 text-gray-700 hover:text-blue-600">
-                                        <component :is="link.icon" class="w-5 h-5"/>
-                                        {{ link.title }}
+                                        <div v-html="icons[link.icon]"></div>
+                                        <span>{{ link.title }}</span>
                                     </a>
+
                                     <div class="flex gap-2">
                                         <button @click="openLink(link.url)"
-                                                class="px-3 py-1.5 rounded bg-gray-200 hover:bg-gray-300 transition">
+                                                class="px-3 py-1.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors">
                                             访问
                                         </button>
                                         <button @click="copyLink(link.url)"
-                                                class="px-3 py-1.5 rounded bg-gray-200 hover:bg-gray-300 transition">
+                                                class="px-3 py-1.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors">
                                             复制
                                         </button>
                                     </div>
@@ -48,81 +56,33 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div v-if="showToast" 
-                         class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg transition-opacity"
-                         :class="{ 'opacity-0': toastFading }"
-                         @transitionend="onToastFaded">
+                         class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg">
                         链接已复制
                     </div>
                 </div>
             `,
+            
             setup() {
                 const showToast = ref(false)
-                const toastFading = ref(false)
                 
-                const categories = [
-                    {
-                        title: 'Outlook',
-                        icon: 'OutlookIcon',
-                        links: [
-                            {
-                                title: '注册账号',
-                                url: 'https://signup.live.com',
-                                icon: 'UserPlusIcon'
-                            },
-                            {
-                                title: '绑定邮箱',
-                                url: 'https://account.live.com/proofs/Add',
-                                icon: 'LockIcon'
-                            }
-                        ]
-                    },
-                    {
-                        title: '小米',
-                        icon: 'MiIcon',
-                        links: [
-                            {
-                                title: '内地社区',
-                                url: 'https://www.xiaomi.cn',
-                                icon: 'UsersIcon'
-                            },
-                            {
-                                title: '账号管理',
-                                url: 'https://account.xiaomi.com/fe/service/account',
-                                icon: 'SettingsIcon'
-                            },
-                            {
-                                title: '国际社区',
-                                url: 'https://c.mi.com/global',
-                                icon: 'GlobeIcon'
-                            }
-                        ]
-                    }
-                ]
-
                 const openLink = (url) => window.open(url, '_blank')
                 
                 const copyLink = async (url) => {
                     await navigator.clipboard.writeText(url)
                     showToast.value = true
                     setTimeout(() => {
-                        toastFading.value = true
+                        showToast.value = false
                     }, 2000)
-                }
-                
-                const onToastFaded = () => {
-                    showToast.value = false
-                    toastFading.value = false
                 }
 
                 return {
-                    categories,
+                    categories: navData.categories,
+                    icons,
                     showToast,
-                    toastFading,
                     openLink,
-                    copyLink,
-                    onToastFaded
+                    copyLink
                 }
             }
         }
