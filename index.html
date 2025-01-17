@@ -64,36 +64,81 @@
                     </div>
 
                     <div v-if="showToast" 
-                         class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg">
-                        链接已复制
+                         class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg animate-fade-in">
+                        {{ toastMessage }}
                     </div>
                 </div>
             `,
             
             setup() {
                 const showToast = ref(false)
+                const toastMessage = ref('')
                 
-                const openLink = (url) => window.open(url, '_blank')
-                
-                const copyLink = async (url) => {
-                    await navigator.clipboard.writeText(url)
+                const showToastMessage = (message) => {
+                    toastMessage.value = message
                     showToast.value = true
                     setTimeout(() => {
                         showToast.value = false
                     }, 2000)
+                }
+                
+                const openLink = (url) => window.open(url, '_blank')
+                
+                const copyLink = async (url) => {
+                    try {
+                        await navigator.clipboard.writeText(url)
+                        showToastMessage('链接已复制')
+                    } catch (error) {
+                        showToastMessage('复制失败')
+                    }
+                }
+                
+                const refreshCache = async () => {
+                    try {
+                        const response = await fetch('?clear_cache=1')
+                        if (response.ok) {
+                            showToastMessage('缓存已刷新')
+                            setTimeout(() => {
+                                location.reload()
+                            }, 1000)
+                        } else {
+                            showToastMessage('刷新缓存失败')
+                        }
+                    } catch (error) {
+                        showToastMessage('刷新缓存失败')
+                    }
                 }
 
                 return {
                     categories: navData.categories,
                     icons,
                     showToast,
+                    toastMessage,
                     openLink,
-                    copyLink
+                    copyLink,
+                    refreshCache
                 }
             }
         }
 
         createApp(App).mount('#app')
     </script>
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
 </body>
 </html>
