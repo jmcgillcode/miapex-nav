@@ -36,6 +36,27 @@ const navData = {
                     icon: 'globe'
                 }
             ]
+        },
+        {
+            title: '临时邮箱',
+            icon: 'mail',  // 需要在 icons.js 中添加对应的图标
+            links: [
+                {
+                    title: 'TempMail',
+                    url: 'https://temp-mail.org',
+                    icon: 'mail-temp'
+                },
+                {
+                    title: '10分钟邮箱',
+                    url: 'https://10minutemail.net',
+                    icon: 'clock'
+                },
+                {
+                    title: 'Guerrilla Mail',
+                    url: 'https://www.guerrillamail.com',
+                    icon: 'shield'
+                }
+            ]
         }
     ]
 }
