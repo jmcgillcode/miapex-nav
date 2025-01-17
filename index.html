@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
@@ -117,6 +117,217 @@
                     openLink,
                     copyLink,
                     refreshCache
+                }
+            }
+        }
+
+        createApp(App).mount('#app')
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</body>
+</html>
+ -->
+ <!DOCTYPE html>
+<html lang="zh" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiApex导航</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#1a1b1e',
+                        'dark-card': '#25262b'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="js/data.js"></script>
+    <script src="js/icons.js"></script>
+</head>
+<body class="bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
+    <div id="app"></div>
+    
+    <script>
+        const { createApp, ref, onMounted } = Vue
+        
+        const App = {
+            template: `
+                <div class="min-h-screen p-5 transition-colors duration-300">
+                    <div class="max-w-6xl mx-auto">
+                        <div class="flex justify-between items-center mb-10">
+                            <h1 class="text-3xl font-bold text-gray-800 dark:text-white">MiApex导航</h1>
+                            <div class="flex gap-3">
+                                <button @click="toggleTheme" 
+                                        class="p-2 rounded-lg bg-gray-100 dark:bg-dark-card hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                    <div v-html="isDark ? icons.sun : icons.moon" class="w-5 h-5 dark:text-white"></div>
+                                </button>
+                                <button @click="refreshCache" 
+                                        class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors flex items-center gap-2">
+                                    <div v-html="icons.refresh" class="w-4 h-4"></div>
+                                    刷新缓存
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                            <div v-for="category in categories" 
+                                 :key="category.title"
+                                 class="bg-white dark:bg-dark-card rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6">
+                                
+                                <div class="flex items-center gap-3 pb-4 mb-4 border-b dark:border-gray-700">
+                                    <div v-html="icons[category.icon]" class="dark:text-white"></div>
+                                    <h2 class="text-xl font-medium text-gray-700 dark:text-white">{{ category.title }}</h2>
+                                </div>
+                                
+                                <div class="space-y-3">
+                                    <div v-for="link in category.links" 
+                                         :key="link.url"
+                                         class="flex justify-between items-center p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all duration-300">
+                                        
+                                        <a :href="link.url" 
+                                           target="_blank"
+                                           class="flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                                            <div v-html="icons[link.icon]"></div>
+                                            <span>{{ link.title }}</span>
+                                        </a>
+
+                                        <div class="flex gap-2">
+                                            <button @click="openLink(link.url)"
+                                                    class="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 transition-colors">
+                                                访问
+                                            </button>
+                                            <button @click="copyLink(link.url)"
+                                                    class="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 transition-colors">
+                                                复制
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="showToast" 
+                         class="fixed bottom-5 right-5 bg-gray-800 dark:bg-gray-700 text-white px-6 py-3 rounded-lg animate-fade-in">
+                        {{ toastMessage }}
+                    </div>
+                </div>
+            `,
+            
+            setup() {
+                const showToast = ref(false)
+                const toastMessage = ref('')
+                const isDark = ref(false)
+                
+                onMounted(() => {
+                    const theme = localStorage.getItem('theme')
+                    isDark.value = theme === 'dark' || 
+                        (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+                    updateTheme()
+                })
+                
+                const updateTheme = () => {
+                    if (isDark.value) {
+                        document.documentElement.classList.add('dark')
+                    } else {
+                        document.documentElement.classList.remove('dark')
+                    }
+                    localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+                }
+                
+                const toggleTheme = () => {
+                    isDark.value = !isDark.value
+                    updateTheme()
+                }
+                
+                const showToastMessage = (message) => {
+                    toastMessage.value = message
+                    showToast.value = true
+                    setTimeout(() => {
+                        showToast.value = false
+                    }, 2000)
+                }
+                
+                const openLink = (url) => window.open(url, '_blank')
+                
+                const copyLink = async (url) => {
+                    try {
+                        await navigator.clipboard.writeText(url)
+                        showToastMessage('链接已复制')
+                    } catch (error) {
+                        showToastMessage('复制失败')
+                    }
+                }
+                
+                const refreshCache = async () => {
+                    try {
+                        const response = await fetch('?clear_cache=1')
+                        if (response.ok) {
+                            showToastMessage('缓存已刷新')
+                            setTimeout(() => {
+                                location.reload()
+                            }, 1000)
+                        } else {
+                            showToastMessage('刷新缓存失败')
+                        }
+                    } catch (error) {
+                        showToastMessage('刷新缓存失败')
+                    }
+                }
+
+                return {
+                    categories: navData.categories,
+                    icons: {
+                        ...icons,
+                        sun: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>`,
+                        moon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>`,
+                        refresh: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6M1 20v-6h6"/>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                        </svg>`
+                    },
+                    isDark,
+                    showToast,
+                    toastMessage,
+                    openLink,
+                    copyLink,
+                    refreshCache,
+                    toggleTheme
                 }
             }
         }
