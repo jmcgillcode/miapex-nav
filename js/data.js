@@ -12,7 +12,7 @@ const navData = {
                 {
                     title: '登录账号',
                     url: 'https://login.live.com',
-                    icon: 'user-plus'
+                    icon: 'user-login'
                 },
                 {
                     title: '邮箱首页',
