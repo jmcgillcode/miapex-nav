@@ -49,7 +49,7 @@ const navData = {
         },
         {
             title: '临时邮箱',
-            icon: 'mail',  // 需要在 icons.js 中添加对应的图标
+            icon: 'mail',
             links: [
                 {
                     title: 'DisposableMail',
@@ -60,6 +60,17 @@ const navData = {
                     title: 'Guerrilla Mail',
                     url: 'https://www.guerrillamail.com',
                     icon: 'mail-shield'
+                }
+            ]
+        },
+        {
+            title: 'IP检测',
+            icon: 'ip_check',
+            links: [
+                {
+                    title: 'PING0',
+                    url: 'https://ping0.cc/',
+                    icon: 'ip-ping0'
                 }
             ]
         }
