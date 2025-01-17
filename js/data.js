@@ -52,9 +52,9 @@ const navData = {
             icon: 'mail',  // 需要在 icons.js 中添加对应的图标
             links: [
                 {
-                    title: 'TempMail',
-                    url: 'https://temp-mail.org',
-                    icon: 'mail-temp'
+                    title: 'DisposableMail',
+                    url: 'https://www.disposablemail.com/',
+                    icon: 'mail-disposablemail'
                 },
                 {
                     title: '10分钟邮箱',
