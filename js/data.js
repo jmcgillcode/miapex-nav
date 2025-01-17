@@ -57,14 +57,9 @@ const navData = {
                     icon: 'mail-disposablemail'
                 },
                 {
-                    title: '10分钟邮箱',
-                    url: 'https://10minutemail.net',
-                    icon: 'clock'
-                },
-                {
                     title: 'Guerrilla Mail',
                     url: 'https://www.guerrillamail.com',
-                    icon: 'shield'
+                    icon: 'mail-shield'
                 }
             ]
         }
