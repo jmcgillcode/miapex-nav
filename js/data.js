@@ -23,6 +23,11 @@ const navData = {
                     title: '绑定邮箱',
                     url: 'https://account.live.com/proofs/Add',
                     icon: 'outlook-lock'
+                },
+                {
+                    title: '添加别名',
+                    url: 'https://go.microsoft.com/fwlink/p/?linkid=864833',
+                    icon: 'outlook-lock'
                 }
             ]
         },
